@@ -1,0 +1,62 @@
+---
+- name: Deploy React App with Docker and Apache on AWS EC2
+  hosts: all
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    # Installing Apache
+    - name: Install Apache2
+      apt:
+        name: apache2
+        update_cache: yes
+
+    # Installing Docker
+    - name: Install Docker dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        update_cache: yes
+
+    - name: Add Docker official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        update_cache: yes
+
+    # Ensure Docker is running
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+
+    # Add ubuntu user to docker group
+    - name: Add ubuntu user to docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    # Building the React app Docker image
+    - name: Copy Dockerfile to the target
+      copy:
+        src: /mnt/c/Users/Nomsa/Desktop/Terraform_skills/Terreform_Docker_Ansible
+        dest: /home/ubuntu/Dockerfile
+
+    - name: Build Docker image for React app
+      command: docker build -t reactapp:latest /home/ubuntu/
+
+    # Running the React app Docker container with Apache
+    - name: Run React app container
+      command: docker run -d -p 8080:8080 reactapp:latest
