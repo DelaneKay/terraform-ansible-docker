@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Building a NoteList React App Image using Docker, Terraform and Ansible
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## NoteList React App
 
-## Available Scripts
+### Step 1: Create React App
+```js
+npx create-react-app notelist
+cd notelist
+```
 
-In the project directory, you can run:
+### Step 2: Implement NoteList Component
+Create a new file named `NoteList.js` in the src directory with the provided NoteList component code above.
 
-### `npm start`
+### Step 3: Integrate NoteList Component in App
+Replace the content of `src/App.js` with the provided App component code.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Step 4: Run the App
+```js
+npm start
+```
+Visit http://localhost:3000 in your browser to see the NoteList app.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Step 5: Commit Changes
+```js
+git add .
+git commit -m "Initialize NoteList React app"
+```
 
-### `npm test`
+## Set Up AWS Infrastructure with Terraform
+### Step 6: Clone Repository
+Clone the repository containing your Terraform and Ansible scripts
+```js
+git clone <repository-url>
+cd <repository-directory>
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Step 7: Create Terraform Configuration
+Create a file named `main.tf` as depicted in the content above
 
-### `npm run build`
+### Step 8: Initialize Terraform
+Run the following commands to initialize Terraform:
+```js
+terraform init
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Step 9: Review and Apply Terraform Changes
+Review the Terraform scripts in the terraform directory and make any necessary adjustments. Then, apply the changes:
+```js
+terraform apply
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deploy React App with Ansible and Docker
+### Step 10: Deploy React App with Docker and Apache using Ansible
+After Terraform applies the changes, obtain the public IP address of the EC2 instance and SSH into it:
+```js
+ssh -i /path/to/your/private-key.pem ubuntu@<instance-public-ip>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Step 11: Create Dockerfile
+Create a file named `Dockerfile` containing content as in the files above
 
-### `npm run eject`
+### Step 12: Write Ansible Playbook
+Create a file named `playbook.yaml` containing content as in the files above
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Step 13: Run Ansible Playbook
+Run the following command in your terminal:
+```js
+ansible-playbook -i <Terraform_Output_IP>, --private-key ~/AWSDevOps.pem deploy_app.yaml
+```
+Replace `<Terraform_Output_IP>` with the IP address outputted by Terraform.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Step 14: Access the Deployed App
+Visit your AWS EC2 instance's public IP address in a web browser to access the deployed NoteList React app.
+```js
+http://<AWS_EC2_Public_IP>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
